@@ -39,6 +39,7 @@ func (s *urlService) ShortenURL(originalURL string) (*model.URL, error) {
 	shortCode := utils.GenerateShortCode(config.App.ShortURLLength)
 
 	url := &model.URL{
+		OwnerId:     1, // TODO: change this to current user_id
 		OriginalURL: originalURL,
 		ShortCode:   shortCode,
 		CreatedAt:   time.Now(),

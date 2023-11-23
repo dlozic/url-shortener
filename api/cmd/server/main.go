@@ -18,12 +18,17 @@ func main() {
 	app := config.App
 	app.Initialize()
 
+	// setup repositories and services
 	urlRepo := repository.NewURLRepository(app.DB)
 	urlService := service.NewURLService(urlRepo)
+	userRepo := repository.NewUserRepository(app.DB)
+	userService := service.NewUserService(userRepo)
 
+	// setup routes
 	router := mux.NewRouter()
 	router.Use(middleware.JSONMiddleware)
-	handler.SetupRoutes(router, urlService)
+	handler.SetupUrlRoutes(router, urlService)
+	handler.SetupUserRoutes(router, userService)
 
 	log.Println("Starting server on " + app.Listen())
 	err := http.ListenAndServe(app.Listen(), router)

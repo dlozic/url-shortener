@@ -57,7 +57,7 @@ func (h *URLHandler) RedirectURL(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url.OriginalURL, http.StatusFound)
 }
 
-func SetupRoutes(router *mux.Router, urlService service.URLService) {
+func SetupUrlRoutes(router *mux.Router, urlService service.URLService) {
 	urlHandler := NewURLHandler(urlService)
 	router.HandleFunc("/api/urls", urlHandler.GetAll).Methods("GET")
 	router.HandleFunc("/api/urls/shorten", urlHandler.ShortenURL).Methods("POST")
